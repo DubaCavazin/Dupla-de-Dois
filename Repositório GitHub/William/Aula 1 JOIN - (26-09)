@@ -1,0 +1,84 @@
+-- NOME = William Gaber de Carvalho
+
+1. Escreva o comando que liste as cidades como todas e os nomes de siglas do estado.
+
+SELECIONAR
+	cidade.nome, estado.sigla
+DO estado, cidade
+
+ONDE estado.id = cidade.estado_id;
+
+2. Escreva o comando que liste as cidades das ativas e os nomes conhecidos -- as siglas do estado.
+
+SELECT cidade.nome, estado.sigla
+DO estado, cidade
+ONDE estado.id = cidade.estado_id
+AND cidade.ativo = 'S';
+
+3. Escreva o comando que liste dos clientes e os nomes das cidades -- nomes.
+
+SELECT cliente.nome, cidade.nome
+
+DE cliente, cidade
+
+WHERE cliente.id = cliente.cidade_id;
+
+4. Escreva o comando que liste dos clientes e os nomes das cidades -- nomes. Liste somente os clientes que moram na cidade de Paranavaí.
+
+SELECT cliente.nome, cidade.nome
+
+DE cliente, cidade
+
+ONDE cliente.id = cliente.cidade_id
+	AND cidade.nome = 'PARANAVAÍ'
+    
+-- 5. Escreva o comando que lista os nomes das cidades e as siglas do estado. Liste apenas como cidades ativas.
+
+SELECT cidade.nome, estado.sigla
+DO estado, cidade
+ONDE estado.id = cidade.estado_id
+AND cidade.ativo = 'S';
+
+6. Escreva o comando que liste dos funcionários e os nomes dos nomes das cidades --.
+
+SELECT funcionario.nome, cidade.nome
+
+DE funcionario, cidade
+
+WHERE cidade.id = funcionario.cidade_id;
+
+-- 7. Escreva o comando que liste os nomes dos funcionários e a sigla do respeito estado.
+
+SELECT funcionario.nome, estado.sigla
+
+DE funcionario, estado, cidade
+
+ONDE estado.id = cidade.estado_id
+	AND cidade.id = funcionario.cidade_id;
+    
+8. Escreva o comando que liste dos clientes e os nomes dos nomes das cidades --. Liste somente os clientes que moram na região sul.
+
+SELECT cliente.nome, cidade.nome
+
+DE cliente, cidade, estado
+
+ONDE estado.id = cidade.estado_id
+	E cidade.id = cliente.cidade_id
+	AND (estado.sigla = 'PR' OR estado.sigla = 'SC' OR estado.sigla = 'RS')
+    
+-- 9. Escreva o comando que liste os nomes dos estados com cadastros ativos que possuem algum cliente cadastrado.
+
+SELECT estado.nome, estado.ativo, cliente.id
+
+DO estado, cliente, cidade	
+
+WHERE estado.ativo = 'S'
+	AND cliente.id = cidade.estado_id;
+    
+-- 10. Escreva o comando que liste todas as vendas e o nome do funcionário que realizou as vendas realizadas.
+
+SELECT venda.id, funcionario.nome, funcionario.id
+
+DE venda, funcionario
+
+ONDE funcionario.id = venda.funcionario_id
