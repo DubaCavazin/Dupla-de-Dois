@@ -31,7 +31,7 @@ DE cliente, cidade
 
 ONDE cliente.id = cliente.cidade_id
 	AND cidade.nome = 'PARANAVAÍ'
-    
+
 -- 5. Escreva o comando que lista os nomes das cidades e as siglas do estado. Liste apenas como cidades ativas.
 
 SELECT cidade.nome, estado.sigla
@@ -55,7 +55,7 @@ DE funcionario, estado, cidade
 
 ONDE estado.id = cidade.estado_id
 	AND cidade.id = funcionario.cidade_id;
-    
+
 8. Escreva o comando que liste dos clientes e os nomes dos nomes das cidades --. Liste somente os clientes que moram na região sul.
 
 SELECT cliente.nome, cidade.nome
@@ -65,7 +65,7 @@ DE cliente, cidade, estado
 ONDE estado.id = cidade.estado_id
 	E cidade.id = cliente.cidade_id
 	AND (estado.sigla = 'PR' OR estado.sigla = 'SC' OR estado.sigla = 'RS')
-    
+
 -- 9. Escreva o comando que liste os nomes dos estados com cadastros ativos que possuem algum cliente cadastrado.
 
 SELECT estado.nome, estado.ativo, cliente.id
@@ -74,11 +74,45 @@ DO estado, cliente, cidade
 
 WHERE estado.ativo = 'S'
 	AND cliente.id = cidade.estado_id;
-    
+
 -- 10. Escreva o comando que liste todas as vendas e o nome do funcionário que realizou as vendas realizadas.
 
 SELECT venda.id, funcionario.nome, funcionario.id
 
 DE venda, funcionario
 
-ONDE funcionario.id = venda.funcionario_id
+ONDE funcionario.id = venda.funcionario_id;
+
+-- 11.	Liste o nome dos produtos, o preço de venda e o nome da unidade de medida.
+
+SELECT produto.nome, item_venda.preco_unidade, unidade_medida.nome
+
+FROM produto, item_venda, unidade_medida, venda
+
+WHERE unidade_medida.id = produto.unidade_medida_id
+	AND venda.id = item_venda.venda_id;
+    
+-- 12.	Liste o nome dos produtos da marca "Coca-cola".
+
+SELECT produto.nome, marca.nome
+
+FROM produto, nome
+
+WHERE marca.id = produto.marca_id
+
+
+
+-- 1.	Em que caso devemos utilizar o JOIN? Quais tabelas podem ser utilizando em um comando JOIN? 
+-- R: em casos que é necessario fazer a relação entre duas tabelas, so podem ser feitas relações em JOIN entre tabelas que ja tem um relação entre PK e FK.
+
+-- 2.	No caso do JOIN, o que é condição de junção. Qual cuidado devemos ter.
+-- R: a condução de junção seria os criterios necessarios pelos quais tem que existir para fazer uma junção. Tem que ter cuidado com junções em tabelas que não foram executadas de maneira correta.->
+
+-- 3.	Em relação a sintaxe, em um JOIN não é necessário utilizarmos condições (WHERE) - o comando irá executar normalmente. Porém, em questão de semântica, a cada junção é necessário ter ao menos 1 condição. Explique.
+-- R: a condição justifica a utilidade do JOIN, sendo ela necessaria para estipular um limite de filtro.->
+
+-- 4.	O que é produto cartesiano? Como funciona? Qual a relação com o JOIN.
+-- R: JOIN retorna todas as linhas das tabelas por cruzamento, assim, para cada linha da tabela esquerda queremos todos os linhas da tabelas direita ou vice-versa. Assim o plano cartesiano faz seu refencia nas tabelas. 
+
+-- 5.	Na elaboração de um consulta que envolve 1587 tabelas, serão necessários, quantas condições de junção?
+-- R: 1586
