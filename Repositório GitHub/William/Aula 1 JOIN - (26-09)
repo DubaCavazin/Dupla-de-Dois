@@ -100,6 +100,17 @@ FROM produto, nome
 
 WHERE marca.id = produto.marca_id
 
+-- 13. DESAFIO!!! Liste os nomes dos clientes do estado de São Paulo que já compraram o produto 'REFRIGERANTE COCA-COLA GARRAFA PET 3 L'.
+
+SELECT cliente.nome
+
+FROM estado, cidade, cliente, venda, produto,
+
+WHERE estado.id = cidade.estado_id
+	AND cidade.id = cliente.cidade_id
+    AND cliente.id = venda.cliente_id
+    AND produto.nome = 'REFRIGERANTE COCA-COLA GARRAFA PET 3 L'
+    AND estado.nome = 'SÃO PAULO'; 
 
 
 -- 1.	Em que caso devemos utilizar o JOIN? Quais tabelas podem ser utilizando em um comando JOIN? 
