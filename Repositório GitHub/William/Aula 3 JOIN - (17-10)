@@ -1,0 +1,55 @@
+1) Liste o nome dos estados que possuem fornecedores da cidade de Naviraí.
+
+SELECT estado.nome
+FROM estado, cidade, fornecedor
+WHERE estado.id = cidade.estado_id
+	AND cidade.id = fornecedor.cidade_id
+    AND cidade.nome = 'Naviraí';
+
+SELECT estado.nome
+FROM estado
+JOIN cidade ON estado.id = cidade.estado_id
+JOIN fornecedor ON cidade.id = fornecedor.cidade_id
+WHERE cidade.nome = 'Naviraí';
+
+2) Liste o nome, preço d custo e venda dos produtos da marca "Santa Fé".
+
+SELECT produto.nome, produto.preco_custo, produto.preço_venda
+FROM marca, produto
+WHERE marca.id = produto.marca_id
+	AND marca.nome = 'Santa Fé';
+
+SELECT produto.nome, produto.preco_custo, produto.preço_venda
+FROM produto
+JOIN marca ON marca.id = produto.marca_id
+WHERE marca.nome = 'Santa Fé';
+
+3) Liste o nome de todos os produtos vndidos abaixo do preço de custo.
+
+SELECT produto.nome
+FROM produto, item_venda
+WHERE produto.id = item_venda.produto_id
+	AND (item_venda.preco_unidade - (item_vendda.descoto/item_venda.quantidade)) < produto.preço_custo;
+    
+SELECT produto.nome
+FROM produto
+JOIN item_venda ON produto.id = item_venda.produto_id
+WHERE (item_venda.preco_unidade - (item_vendda.descoto/item_venda.quantidade)) < produto.preço_custo;
+
+4) Devido a um problema de um lote, liste o nome dos clientes que commpraram o produto com o nome "Farinha de trigo Pan" antes do dia 25/03/2021
+
+SELECT cliente.nome
+FROM cliente, produto, venda, item_venda
+WHERE cliente.id = venda.cliente_id
+	AND venda.id = item_venda.venda_id
+    AND item_venda.id = produto.item_venda.id
+    AND (venda.data_cadastro < '25/03/2021');
+    
+SELECT cliente.nome
+FROM cliente
+JOIN venda ON cliente.id = venda.cliente_id
+JOIN item_venda ON venda.id = item_venda.venda_id
+JOIN produto ON item_venda.id = produto.item_venda.id
+WHERE (venda.data_cadastro < '25/03/2021');
+
+5) Liste o CPF dos cliente da cidade de São Paulo que já compraram produtos fornrcidos pelos fornecedores de Santa Catarina.
